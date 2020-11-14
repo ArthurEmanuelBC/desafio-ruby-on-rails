@@ -1,7 +1,7 @@
 class CreateCnabTypes < ActiveRecord::Migration[6.0]
   def change
     create_table :cnab_types do |t|
-      t.string :type
+      t.string :number
       t.string :description
       t.string :nature
 

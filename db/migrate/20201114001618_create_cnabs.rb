@@ -5,6 +5,8 @@ class CreateCnabs < ActiveRecord::Migration[6.0]
       t.decimal :value, precision: 10, scale: 2
       t.string :cpf
       t.string :card_number
+      t.references :store
+      t.references :cnab_type
 
       t.timestamps
     end

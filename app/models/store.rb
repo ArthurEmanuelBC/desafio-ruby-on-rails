@@ -1,3 +1,3 @@
 class Store < ApplicationRecord
-  belongs_to cnab
+  has_many :cnabs, inverse_of: :store
 end

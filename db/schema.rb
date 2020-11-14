@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_004333) do
+ActiveRecord::Schema.define(version: 2020_11_14_001618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,6 @@ ActiveRecord::Schema.define(version: 2020_11_14_004333) do
     t.string "nature"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "cnab_id"
-    t.index ["cnab_id"], name: "index_cnab_types_on_cnab_id"
   end
 
   create_table "cnabs", force: :cascade do |t|
@@ -30,8 +28,12 @@ ActiveRecord::Schema.define(version: 2020_11_14_004333) do
     t.decimal "value", precision: 10, scale: 2
     t.string "cpf"
     t.string "card_number"
+    t.bigint "store_id"
+    t.bigint "cnab_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cnab_type_id"], name: "index_cnabs_on_cnab_type_id"
+    t.index ["store_id"], name: "index_cnabs_on_store_id"
   end
 
   create_table "stores", force: :cascade do |t|
@@ -39,8 +41,6 @@ ActiveRecord::Schema.define(version: 2020_11_14_004333) do
     t.string "agent"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "cnab_id"
-    t.index ["cnab_id"], name: "index_stores_on_cnab_id"
   end
 
 end

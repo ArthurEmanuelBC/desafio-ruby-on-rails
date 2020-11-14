@@ -1,6 +1,6 @@
 class Cnab < ApplicationRecord
-  has_many :cnab_types
-  has_many :stores
+  belongs_to :cnab_type
+  belongs_to :store
 
-  validate_presence_of :occurence_at, :value, :cpf, :card_number
+  validates_presence_of :occurence_at, :value, :cpf, :card_number
 end

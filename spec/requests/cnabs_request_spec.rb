@@ -7,6 +7,7 @@ RSpec.describe 'Cnabs', type: :request do
     let(:store_id) { store.id }
     let!(:cnab1) { create(:cnab, store: store) }
     let!(:cnab2) { create(:cnab, store: store) }
+    let!(:cnab3) { create(:cnab) }
 
     before { get '/cnabs', params: { store_id: store_id } }
 
@@ -16,7 +17,7 @@ RSpec.describe 'Cnabs', type: :request do
     context 'when not fount store' do
       let(:store_id) { 'some-inexistent-id' }
 
-      it { expect(response).to have_http_status(:error) }
+      it { expect(response).to have_http_status(:not_found) }
       it { expect(response.body).to eq('Loja não encontrada') }
     end
   end

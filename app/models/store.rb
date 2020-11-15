@@ -9,4 +9,11 @@ class Store < ApplicationRecord
   rescue ActiveRecord::RecordNotFound
     Store.create(name: name, agent: agent)
   end
+
+  def to_json
+    {
+      name: name,
+      agent: agent
+    }
+  end
 end

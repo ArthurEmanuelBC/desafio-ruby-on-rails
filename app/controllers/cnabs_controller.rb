@@ -2,7 +2,7 @@ class CnabsController < ApplicationController
   def index
     store = Store.find(params[:store_id])
 
-    render json: store.cnabs.to_json(include: [:cnab_type, :store])
+    render json: { cnabs: store.cnabs.to_json(include: [:cnab_type, :store]), total_balance: store.total_balance }
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'Loja não encontrada' }, status: :not_found
   end
@@ -11,7 +11,7 @@ class CnabsController < ApplicationController
     file = cnab_params[:file].read
     @cnabs = Cnabs::ParseFile.call(file)
 
-    render json: @cnabs, status: :created
+    render json: @cnabs.to_json, status: :created
   rescue StandardError => e
     render json: { message: e.message }, status: :error
   end

@@ -10,10 +10,7 @@ class Store < ApplicationRecord
     Store.create(name: name, agent: agent)
   end
 
-  def to_json
-    {
-      name: name,
-      agent: agent
-    }
+  def total_balance
+    cnabs.map { |cnab| cnab.inflow? ? cnab.value : cnab.value * (-1) }.sum
   end
 end

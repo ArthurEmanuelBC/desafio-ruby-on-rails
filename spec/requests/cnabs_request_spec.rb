@@ -13,7 +13,8 @@ RSpec.describe 'Cnabs', type: :request do
     before { get '/cnabs', params: { store_id: store_id } }
 
     it { expect(response).to have_http_status(:success) }
-    it { expect(response.body).to eq(store.cnabs.to_json(include: [:cnab_type, :store])) }
+    it { expect(json['cnabs']).to eq(store.cnabs.to_json(include: [:cnab_type, :store])) }
+    it { expect(json['total_balance']).to eq(store.total_balance.to_s) }
 
     context 'when not fount store' do
       let(:store_id) { 'some-inexistent-id' }
@@ -33,14 +34,14 @@ RSpec.describe 'Cnabs', type: :request do
 
     it { expect(response).to have_http_status(:created) }
     it { expect(Cnab.count).to eq(1) }
+    it { expect(Cnab.first.cnab_type).to eq(CnabType.find_by(number: '5')) }
+    it { expect(Cnab.first.store).to eq(Store.find_by(name: 'LOJA DO Ó - MATRIZ')) }
     it do
       expect(Cnab.first.attributes).to include({
         'occurence_at' => DateTime.parse('20190301145607'),
         'value' => BigDecimal.new(132),
         'cpf' => '55641815063',
         'card_number' => '3123****7687'
-        # cnab_type: CnabType.find_by(number: '5'),
-        # store: Store.find_by(name: 'MARIA JOSEFINA')
       })
     end
   end

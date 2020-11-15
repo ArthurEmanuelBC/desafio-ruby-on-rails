@@ -24,4 +24,14 @@ RSpec.describe Store, type: :model do
       it { expect(Store.find_by_name_or_create(name, agent)).to eq(Store.find_by(name: name)) }
     end
   end
+
+  describe '#total_balance' do
+    let(:inflow) { build(:cnab_type, :inflow) }
+    let(:outflow) { build(:cnab_type, :outflow) }
+    let(:cnab_inflow) { build(:cnab, value: 10, cnab_type: inflow) }
+    let(:cnab_outflow) { build(:cnab, value: 8, cnab_type: outflow) }
+    let(:store) { build(:store, cnabs: [cnab_inflow, cnab_outflow]) }
+
+    it { expect(store.total_balance).to eq(2) }
+  end
 end

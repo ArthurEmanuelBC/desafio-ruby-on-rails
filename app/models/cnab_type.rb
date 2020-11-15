@@ -2,11 +2,11 @@ class CnabType < ApplicationRecord
   validates_uniqueness_of :number
   validates :nature, inclusion: { in: %w[inflow outflow] }
 
-  def to_json
-    {
-      number: number,
-      description: description,
-      nature: nature
-    }
+  def inflow?
+    nature == 'inflow'
+  end
+
+  def outflow?
+    nature == 'outflow'
   end
 end

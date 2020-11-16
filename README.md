@@ -28,6 +28,8 @@ O front-end foi feito de maneira bem simples. Ele está dentro da pasta `front` 
 1. A listagem dos CNABs importados da loja selecionada na view: `index.html`
 2. Formulário para importação do arquivo CNAB: `upload.html`
 
+O arquivo de importação `CNAB.txt` encontra-se na pasta raiz do projeto.
+
 # Documentação do CNAB
 
 | Descrição do campo  | Inicio | Fim | Tamanho | Comentário

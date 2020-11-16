@@ -27,7 +27,9 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Loja:</span>
             </div>
-            <select class="form-control" id="stores"></select>
+            <select class="form-control" id="stores">
+              <option value="" selected disabled>Nenhuma loja selecionada</option>
+            </select>
             <div class="input-group-append">
               <button type="submit" class="btn btn-primary input-group-btn">Selecionar</button>
             </div>
@@ -69,6 +71,9 @@
       $('form#store-form').submit(function (event) {
         event.preventDefault();
 
+        if($('select#stores > option:selected').val() == 'Nenhuma loja selecionada')
+          return;
+
         const store_id = $('select#stores > option:selected').val();
         const store_name = $('select#stores > option:selected').text();
 
@@ -77,7 +82,7 @@
       });
 
       function getStores() {
-        $('select#stores').html('');
+        $('select#stores').html('<option selected disabled>Nenhuma loja selecionada</option>');
 
         axios.get('http://localhost:3000/stores').then(function (response) {
           response.data.forEach(store => {

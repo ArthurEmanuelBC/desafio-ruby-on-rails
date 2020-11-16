@@ -20,7 +20,6 @@
   <body>
     <div class="container">
       <h1>CNAB</h1>
-      <h2 id="store"></h2>
 
       <form id="store-form">
         <div class="form-group">
@@ -36,6 +35,8 @@
         </div>
       </form>
 
+      <h3 id="store"></h3>
+
       <table id="table" class="table table-bordered table-striped">
         <thead>
           <tr>
@@ -49,10 +50,14 @@
         <tbody>
         </tbody>
       </table>
+
+      <button href="upload.html" class="btn btn-success">Fazer upload de arquivo</button>
     </div>
 
     <!-- jQuery and Bootstrap Bundle -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
     <!-- APi consume -->
@@ -64,7 +69,11 @@
       $('form#store-form').submit(function (event) {
         event.preventDefault();
 
+        const store_id = $('select#stores > option:selected').val();
+        const store_name = $('select#stores > option:selected').text();
 
+        $('h3#store').html(`Loja selecionada: ${store_name}`);
+        getCnabs(store_id);
       });
 
       function getStores() {
@@ -77,25 +86,28 @@
         });
       }
 
-      function getCnabs() {
-        $('select#stores').html('');
+      function getCnabs(store_id) {
+        $('table#table > tbody').html('');
 
-        axios.get(`http://localhost:3000/cnabs?store_id=${$('select#stores').val()}`).then(function (response) {
-          response.data.cnabs.forEach(cnab => {
+        axios.get(`http://localhost:3000/cnabs?store_id=${store_id}`).then(function (response) {
+          const cnabs = JSON.parse(response.data.cnabs);
+
+          cnabs.forEach(cnab => {
+            let date = new Date(cnab.occurence_at);
             let line = '<tr>';
 
             line += `<td>${cnab.cnab_type.description}</td>`;
             line += `<td>${cnab.cnab_type.nature == 'inflow' ? 'Entrada' : 'Saída'}</td>`;
-            line += `<td>${cnab.occurence_at}</td>`;
+            line += `<td>${date.toLocaleString('pt-BR', { timeZone: 'UTC' })}</td>`;
             line += `<td>${cnab.cpf}</td>`;
             line += `<td>${cnab.card_number}</td>`;
-            line += `<td>${cnab.value}</td>`;
+            line += `<td>${parseFloat(cnab.value).toFixed(2)}</td>`;
             line += '</tr>';
 
             $('table#table > tbody').append(line);
           });
 
-          $('table.table > tbody').append(`<tr class='total-balance-line'><td colspan='5'>TOTAL:</td><td>${response.data.total_balance}</td></tr>`);
+          $('table.table > tbody').append(`<tr class='total-balance-line'><td colspan='5'>TOTAL:</td><td>${response.data.total_balance.toFixed(2)}</td></tr>`);
         });
       }
     </script>

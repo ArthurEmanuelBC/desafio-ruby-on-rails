@@ -45,5 +45,11 @@ RSpec.describe 'Cnabs', type: :request do
                                                  'card_number' => '3123****7687'
                                                })
     end
+
+    context 'when file params is wrong' do
+      let!(:file) { 'is-not-a-file' }
+
+      it { expect(response).to have_http_status(:internal_server_error) }
+    end
   end
 end

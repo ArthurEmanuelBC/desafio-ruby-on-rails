@@ -15,7 +15,7 @@ class CnabsController < ApplicationController
 
     render json: @cnabs.to_json, status: :created
   rescue StandardError => e
-    render json: { message: e.message }, status: :error
+    render json: { message: e.message }, status: :internal_server_error
   end
 
   private

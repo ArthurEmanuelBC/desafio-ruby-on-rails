@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :cnab_type do
     number { (CnabType.count + 1).to_s }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CnabType, type: :model do
@@ -15,5 +17,4 @@ RSpec.describe CnabType, type: :model do
     it { expect(outflow.inflow?).to be_falsey }
     it { expect(outflow.outflow?).to be_truthy }
   end
-
 end

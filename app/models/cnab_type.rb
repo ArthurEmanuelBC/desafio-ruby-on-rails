@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CnabType < ApplicationRecord
   validates_uniqueness_of :number
   validates :nature, inclusion: { in: %w[inflow outflow] }

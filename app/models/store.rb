@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Store < ApplicationRecord
   has_many :cnabs, inverse_of: :store
 
@@ -11,6 +13,6 @@ class Store < ApplicationRecord
   end
 
   def total_balance
-    cnabs.map { |cnab| cnab.inflow? ? cnab.value : cnab.value * (-1) }.sum
+    cnabs.map { |cnab| cnab.inflow? ? cnab.value : cnab.value * -1 }.sum
   end
 end

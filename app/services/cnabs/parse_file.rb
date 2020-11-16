@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cnabs
   class ParseFile
     def self.call(file)
@@ -9,8 +11,6 @@ module Cnabs
         end
       end
     end
-
-    private
 
     def self.line_attributes(line)
       {

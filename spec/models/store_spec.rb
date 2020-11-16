@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Store, type: :model do
@@ -11,7 +13,7 @@ RSpec.describe Store, type: :model do
     it { is_expected.to validate_uniqueness_of(:name) }
   end
 
-  describe "#find_by_name_or_create" do
+  describe '#find_by_name_or_create' do
     let(:name) { 'some_name' }
     let(:agent) { 'some_agent' }
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cnab < ApplicationRecord
   belongs_to :cnab_type
   belongs_to :store

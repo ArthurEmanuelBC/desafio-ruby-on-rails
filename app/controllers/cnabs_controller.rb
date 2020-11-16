@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CnabsController < ApplicationController
   def index
     store = Store.find(params[:store_id])
 
-    render json: { cnabs: store.cnabs.to_json(include: [:cnab_type, :store]), total_balance: store.total_balance }
+    render json: { cnabs: store.cnabs.to_json(include: %i[cnab_type store]), total_balance: store.total_balance }
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'Loja não encontrada' }, status: :not_found
   end

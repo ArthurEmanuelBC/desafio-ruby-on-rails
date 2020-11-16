@@ -51,7 +51,7 @@
         </tbody>
       </table>
 
-      <button href="upload.html" class="btn btn-success">Fazer upload de arquivo</button>
+      <a href="upload.html" class="btn btn-success">Fazer upload de arquivo CNAB</a>
     </div>
 
     <!-- jQuery and Bootstrap Bundle -->
@@ -107,7 +107,7 @@
             $('table#table > tbody').append(line);
           });
 
-          $('table.table > tbody').append(`<tr class='total-balance-line'><td colspan='5'>TOTAL:</td><td>${response.data.total_balance.toFixed(2)}</td></tr>`);
+          $('table.table > tbody').append(`<tr class='total-balance-line'><td colspan='5'>TOTAL:</td><td>${parseFloat(response.data.total_balance).toFixed(2)}</td></tr>`);
         });
       }
     </script>
